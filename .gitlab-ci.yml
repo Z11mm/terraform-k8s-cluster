@@ -8,10 +8,16 @@ include:
   - template: Terraform/Base.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Terraform/Base.latest.gitlab-ci.yml
 
 stages:
+  - install
   - init
   - validate
   - deploy
 
+install-terraform:
+  stage: install
+  script:
+    - echo "Installing Terraform"
+    
 init:
   extends: .init
   script:

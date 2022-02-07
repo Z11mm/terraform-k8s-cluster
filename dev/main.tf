@@ -26,6 +26,9 @@ module "vpc_network" {
 # CREATE GKE CLUSTER
 # --------------------------------------------------------------------------------------
 module "gke_cluster" {
+  depends_on = [
+    module.vpc_network
+  ]
   # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
   # to a specific version of the modules, such as the following example:
   # source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.2.0"
@@ -76,7 +79,7 @@ resource "google_container_node_pool" "node-pool" {
   node_config {
     machine_type    = "e2-standard-2"
     service_account = module.gke_service_account.email
-    disk_size_gb    = "20"
+    disk_size_gb    = "30"
     disk_type       = "pd-standard"
     preemptible     = false
     oauth_scopes = [
@@ -85,6 +88,20 @@ resource "google_container_node_pool" "node-pool" {
       "https://www.googleapis.com/auth/monitoring"
     ]
   }
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [module.gke_cluster]
+  create_duration = "30s"
+}
+
+module "gke_auth" {
+  depends_on           = [time_sleep.wait_30_seconds]
+  source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
+  project_id           = var.project_id
+  cluster_name         = module.gke_cluster.name
+  location             = var.region
+  use_private_endpoint = false
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

@@ -17,7 +17,11 @@ install-terraform:
   stage: install
   script:
     - echo "Installing Terraform"
-    
+    - wget -O terraform.zip https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip
+    - unzip terraform.zip
+    - chmod +x terraform
+    - sudo mv terraform /usr/local/bin
+
 init:
   extends: .init
   script:
@@ -28,9 +32,9 @@ validate:
   script:
     - echo "Validating Terraform"
 
-deploy:
-  extends: .deploy
-  dependencies:
-    - validate
-  script:
-    - echo "Deploying Terraform"
+# deploy:
+#   extends: .deploy
+#   dependencies:
+#     - validate
+#   script:
+#     - echo "Deploying Terraform"

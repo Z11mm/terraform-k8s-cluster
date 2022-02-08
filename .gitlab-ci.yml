@@ -13,27 +13,29 @@ stages:
   - validate
   - deploy
 
-install-terraform:
-  stage: install
-  script:
+before_script:
     - echo "Installing Terraform"
-    - wget -O terraform.zip https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip
-    - unzip terraform.zip
-    - chmod +x terraform
-    - mv terraform /usr/local/bin
+    - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+    - apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    - apt install terraform
 
-init:
-  extends: .init
-  script:
-    - echo "Initializing Terraform"
-    - cd /dev
-    - pwd
-    - terraform init
+    # - wget -O terraform.zip https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip
+    # - unzip terraform.zip
+    # - chmod +x terraform
+    # - mv terraform /usr/local/bin
 
-validate:
-  extends: .validate
-  script:
-    - echo "Validating Terraform"
+# init:
+#   extends: .init
+#   script:
+#     - echo "Initializing Terraform"
+#     - cd /dev
+#     - pwd
+#     - terraform init
+
+# validate:
+#   extends: .validate
+#   script:
+#     - echo "Validating Terraform"
 
 # deploy:
 #   extends: .deploy

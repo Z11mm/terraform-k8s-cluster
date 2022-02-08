@@ -15,8 +15,6 @@ stages:
 
 before_script:
     - echo "Installing Terraform"
-    # - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
-    # - apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     - apk update && apk add terraform
 
     # - wget -O terraform.zip https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip
@@ -28,9 +26,9 @@ init:
   extends: .init
   script:
     - echo "Initializing Terraform"
-#     - cd /dev
-#     - pwd
-#     - terraform init
+    - cd /dev
+    - pwd
+    - terraform init
 
 # validate:
 #   extends: .validate

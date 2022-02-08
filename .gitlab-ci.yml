@@ -26,7 +26,7 @@ init:
   extends: .init
   script:
     - echo "Initializing Terraform"
-    - cd /dev
+    - cd terraform-k8s-cluster/dev
     - pwd
     - terraform init
 

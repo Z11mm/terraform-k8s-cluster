@@ -28,7 +28,7 @@ init:
     - echo "Initializing Terraform"
     - cd /dev
     - pwd
-    # - terraform init
+    - terraform init
 
 validate:
   extends: .validate

@@ -26,8 +26,8 @@ init:
   extends: .init
   script:
     - echo "Initializing Terraform"
-    - cd /dev
-    - terraform init
+    - pwd
+    # - terraform init
 
 validate:
   extends: .validate

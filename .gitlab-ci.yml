@@ -24,10 +24,10 @@ before_script:
     # - chmod +x terraform
     # - mv terraform /usr/local/bin
 
-# init:
-#   extends: .init
-#   script:
-#     - echo "Initializing Terraform"
+init:
+  extends: .init
+  script:
+    - echo "Initializing Terraform"
 #     - cd /dev
 #     - pwd
 #     - terraform init

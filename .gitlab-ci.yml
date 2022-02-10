@@ -24,7 +24,7 @@ install-terraform:
   stage: init
   script:
     - ls -al
-    - gitlab-terraform init
+    - terraform init
 
 validate:
   stage: validate
@@ -38,13 +38,14 @@ build:
   variables:
     TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
   script:
-    - gitlab-terraform plan
+    - terraform plan
 
 deploy:
   stage: apply
   variables:
     TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
   script:
+    - terraform init
     - terraform apply -auto-approve
   dependencies:
     - build

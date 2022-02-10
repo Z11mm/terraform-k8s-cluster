@@ -2,25 +2,25 @@
 # # CREATE VPC NETWORK
 # # ---------------------------------------------------------------------------------------
 
-# resource "random_string" "suffix" {
-#   length  = 4
-#   special = false
-#   upper   = false
-# }
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
 
-# module "vpc_network" {
-#   source = "github.com/gruntwork-io/terraform-google-network.git//modules/vpc-network?ref=v0.8.2"
+module "vpc_network" {
+  source = "github.com/gruntwork-io/terraform-google-network.git//modules/vpc-network?ref=v0.8.2"
 
-#   name_prefix = "${var.cluster_name}-${random_string.suffix.result}-${var.environment}"
-#   project     = var.project
-#   region      = var.region
+  name_prefix = "${var.cluster_name}-${random_string.suffix.result}-${var.environment}"
+  project     = var.project
+  region      = var.region
 
-#   cidr_block = var.vpc_cidr_block
+  cidr_block = var.vpc_cidr_block
 
-#   public_subnetwork_secondary_range_name = var.public_subnetwork_secondary_range_name
-#   public_services_secondary_range_name   = var.public_services_secondary_range_name
-#   public_services_secondary_cidr_block   = var.public_services_secondary_cidr_block
-# }
+  public_subnetwork_secondary_range_name = var.public_subnetwork_secondary_range_name
+  public_services_secondary_range_name   = var.public_services_secondary_range_name
+  public_services_secondary_cidr_block   = var.public_services_secondary_cidr_block
+}
 
 # # --------------------------------------------------------------------------------------
 # # CREATE GKE CLUSTER

@@ -9,9 +9,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "gcp_credentials" {
-  default     = "./key.json"
-  description = "The path for the service account private key file"
+variable "GOOGLE_CREDENTIALS" {
   type        = string
 }
 

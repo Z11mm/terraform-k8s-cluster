@@ -24,21 +24,29 @@ terraform {
     }
   }
 
-  backend "gcs" {
+  backend "http" {
+    address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate"
+    lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate/lock"
+    unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate/lock"
+    username = "Ziimm"
+    password = "glpat-y2vAte3yUBNNikaTZdKe"
+    lock_method = "POST"
+    unlock_method = "DELETE"
+    retry_wait_min = 5
     # credentials = "./key.json"
     # credentials = file(var.gcp_credentials)
-    bucket = "backend-bucket-tf-01-333007"
+    # bucket = "backend-bucket-tf-01-333007"
   }
 }
 
 provider "google" {
-  credentials = var.gcp_credentials
+  credentials = var.GOOGLE_CREDENTIALS
   project     = var.project_id
   region      = var.region
 }
 
 provider "google-beta" {
-  credentials = var.gcp_credentials
+  credentials = var.GOOGLE_CREDENTIALS
   project     = var.project_id
   region      = var.region
 }

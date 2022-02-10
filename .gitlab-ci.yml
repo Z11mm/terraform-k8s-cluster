@@ -25,3 +25,8 @@ install-terraform:
     - ls -al
     - gitlab-terraform init
 
+validate:
+  stage: validate
+  script:
+    - echo "Validating terraform config files"
+    - gitlab-terraform validate

@@ -30,3 +30,8 @@ validate:
   script:
     - echo "Validating terraform config files"
     - gitlab-terraform validate
+
+build:
+  stage: plan
+  script:
+    - gitlab-terraform plan

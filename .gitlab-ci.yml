@@ -35,6 +35,6 @@ validate:
 build:
   stage: plan
   variables:
-    GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
+    TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
   script:
     - gitlab-terraform plan

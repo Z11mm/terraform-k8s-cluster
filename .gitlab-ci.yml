@@ -47,5 +47,5 @@ deploy:
   script:
     - terraform apply -auto-approve
   dependencies:
-    - plan
+    - build
   when: manual

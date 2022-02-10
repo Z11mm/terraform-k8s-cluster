@@ -25,9 +25,9 @@ terraform {
   }
 
   backend "http" {
-    address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate"
-    lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate/lock"
-    unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default.tfstate/lock"
+    address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default"
+    lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
+    unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
     username = "Ziimm"
     password = "glpat-y2vAte3yUBNNikaTZdKe"
     lock_method = "POST"

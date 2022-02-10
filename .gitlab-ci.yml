@@ -39,6 +39,15 @@ build:
     TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
   script:
     - gitlab-terraform plan
+    - gitlab-terraform plan -json
+  artifacts:
+    name: plan
+    paths:
+      - ${TF_ROOT}/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
+    untracked: false
+    expire_in: 30 days
 
 deploy:
   stage: apply

@@ -2,6 +2,7 @@ image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
 
 variables:
   TF_ROOT: ${CI_PROJECT_DIR}/dev
+  GIT_DEPTH: 10
 
 before_script:
   - cd ${TF_ROOT}
@@ -15,4 +16,4 @@ stages:
 install-terraform:
   stage: init
   script:
-    - pwd
+    - ls -al

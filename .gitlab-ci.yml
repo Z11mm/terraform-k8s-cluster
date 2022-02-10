@@ -4,6 +4,7 @@ variables:
   TF_ROOT: ${CI_PROJECT_DIR}/dev
   TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/default.tfstate
   GIT_DEPTH: 10
+  GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
 
 cache:
   key: dev
@@ -12,6 +13,7 @@ cache:
     
 before_script:
   - cd ${TF_ROOT}
+  - echo "${GOOGLE_CREDENTIALS}" > ${TF_ROOT}/key.json
 
 stages:
   - init

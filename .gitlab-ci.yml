@@ -12,7 +12,7 @@ cache:
     
 before_script:
   - cd ${TF_ROOT}
-  - cp ${GOOGLE_CREDENTIALS} > ${TF_ROOT}/key.json
+  - cp ${GOOGLE_CREDENTIALS} ${TF_ROOT}/key.json
 
 stages:
   - init

@@ -67,7 +67,5 @@ takedown:
     TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
   script:
     - gitlab-terraform destroy -auto-approve
-  # dependencies:
-  #   - build
 
   when: manual

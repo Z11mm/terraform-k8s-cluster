@@ -25,17 +25,17 @@ terraform {
   }
 
   backend "http" {
-    address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default"
-    lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
-    unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
-    username = "Ziimm"
-    password = "glpat-y2vAte3yUBNNikaTZdKe"
-    lock_method = "POST"
-    unlock_method = "DELETE"
-    retry_wait_min = 5
-    # credentials = "./key.json"
-    # credentials = file(var.gcp_credentials)
-    # bucket = "backend-bucket-tf-01-333007"
+    # address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default"
+    # lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
+    # unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
+    # username = "Ziimm"
+    # password = "glpat-y2vAte3yUBNNikaTZdKe"
+    # lock_method = "POST"
+    # unlock_method = "DELETE"
+    # retry_wait_min = 5
+    credentials = "./key.json"
+    bucket = "backend-bucket-tf-01-333007"
+    # prefix = "boutique-app/dev"
   }
 }
 

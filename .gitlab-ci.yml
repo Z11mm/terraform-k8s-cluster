@@ -12,13 +12,14 @@ cache:
     
 before_script:
   - cd ${TF_ROOT}
-  # - echo "${GOOGLE_CREDENTIALS}" > ${TF_ROOT}/key.json
+  - echo "${GOOGLE_CREDENTIALS}" > ${TF_ROOT}/key.json
 
 stages:
   - init
   - validate
   - plan
   - apply
+  - destroy
 
 install-terraform:
   stage: init
@@ -58,4 +59,15 @@ deploy:
   dependencies:
     - build
     
+  when: manual
+
+takedown:
+  stage: destroy
+  variables:
+    TF_VAR_GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS}
+  script:
+    - gitlab-terraform destroy -auto-approve
+  # dependencies:
+  #   - build
+
   when: manual

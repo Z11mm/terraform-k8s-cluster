@@ -33,7 +33,7 @@ terraform {
     # lock_method = "POST"
     # unlock_method = "DELETE"
     # retry_wait_min = 5
-    credentials = var.GOOGLE_CREDENTIALS
+    credentials = "./key.json"
     # credentials = file(var.gcp_credentials)
     bucket = "backend-bucket-tf-01-333007"
   }

@@ -21,7 +21,7 @@ stages:
   - apply
   - destroy
 
-install-terraform:
+initialize-terraform:
   stage: init
   script:
     - ls -al

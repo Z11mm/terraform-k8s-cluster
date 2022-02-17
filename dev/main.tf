@@ -9,18 +9,31 @@ resource "random_string" "suffix" {
 }
 
 module "vpc_network" {
-  source = "github.com/gruntwork-io/terraform-google-network.git//modules/vpc-network?ref=v0.8.2"
+  source  = "terraform-google-modules/network/google"
+  version = "~> 4.0"
 
-  name_prefix = "${var.cluster_name}-${random_string.suffix.result}-${var.environment}"
-  project     = var.project
-  region      = var.region
+  project_id   = var.project_id
+  network_name = var.network_name
+  routing_mode = var.routing_mode
+  auto_create_subnetworks = var.auto_create_subnetworks
+  mtu = var.mtu
 
-  cidr_block = var.vpc_cidr_block
-
-  public_subnetwork_secondary_range_name = var.public_subnetwork_secondary_range_name
-  public_services_secondary_range_name   = var.public_services_secondary_range_name
-  public_services_secondary_cidr_block   = var.public_services_secondary_cidr_block
+  subnets = var.subnets
+  secondary_ranges = var.secondary_ranges
 }
+# module "vpc_network" {
+#   source = "github.com/gruntwork-io/terraform-google-network.git//modules/vpc-network?ref=v0.8.2"
+
+#   name_prefix = "${var.cluster_name}-${random_string.suffix.result}-${var.environment}"
+#   project     = var.project
+#   region      = var.region
+
+#   cidr_block = var.vpc_cidr_block
+
+#   public_subnetwork_secondary_range_name = var.public_subnetwork_secondary_range_name
+#   public_services_secondary_range_name   = var.public_services_secondary_range_name
+#   public_services_secondary_cidr_block   = var.public_services_secondary_cidr_block
+# }
 
 # --------------------------------------------------------------------------------------
 # CREATE GKE CLUSTER

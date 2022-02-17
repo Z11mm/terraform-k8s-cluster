@@ -25,14 +25,6 @@ terraform {
   }
 
   backend "gcs" {
-    # address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default"
-    # lock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
-    # unlock_address = "https://gitlab.com/api/v4/projects/32699910/terraform/state/default/lock"
-    # username = "Ziimm"
-    # password = "glpat-y2vAte3yUBNNikaTZdKe"
-    # lock_method = "POST"
-    # unlock_method = "DELETE"
-    # retry_wait_min = 5
     credentials = "./key.json"
     bucket = "backend-bucket-tf-01-333007"
     # prefix = "boutique-app/dev"
@@ -64,15 +56,15 @@ provider "kubectl" {
 data "google_client_config" "default" {}
 
 provider "kubernetes" {
-  host                   = "https://${module.gke.endpoint}"
+  host                   = "https://${module.gke_cluster.endpoint}"
   token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+  cluster_ca_certificate = base64decode(module.gke_cluster.ca_certificate)
 }
 
 provider "helm" {
   kubernetes {
-    host                   = "https://${module.gke.endpoint}"
+    host                   = "https://${module.gke_cluster.endpoint}"
     token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+    cluster_ca_certificate = base64decode(module.gke_cluster.ca_certificate)
   }
 }

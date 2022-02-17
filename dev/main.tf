@@ -22,38 +22,38 @@ module "vpc_network" {
   public_services_secondary_cidr_block   = var.public_services_secondary_cidr_block
 }
 
-# # --------------------------------------------------------------------------------------
-# # CREATE GKE CLUSTER
-# # --------------------------------------------------------------------------------------
-# module "gke_cluster" {
-#   depends_on = [
-#     module.vpc_network
-#   ]
-#   # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
-#   # to a specific version of the modules, such as the following example:
-#   # source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.2.0"
-#   source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.10.0"
+# --------------------------------------------------------------------------------------
+# CREATE GKE CLUSTER
+# --------------------------------------------------------------------------------------
+module "gke_cluster" {
+  depends_on = [
+    module.vpc_network
+  ]
+  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
+  # to a specific version of the modules, such as the following example:
+  # source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.2.0"
+  source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.10.0"
 
-#   name = "${var.cluster_name}-${var.environment}"
+  name = "${var.cluster_name}-${var.environment}"
 
-#   project  = var.project
-#   location = var.region
+  project  = var.project
+  location = var.region
 
-#   # We're deploying the cluster in the 'public' subnetwork to allow outbound internet access
-#   # See the network access tier table for full details:
-#   # https://github.com/gruntwork-io/terraform-google-network/tree/master/modules/vpc-network#access-tier
-#   network                      = module.vpc_network.network
-#   subnetwork                   = module.vpc_network.public_subnetwork
-#   cluster_secondary_range_name = module.vpc_network.public_subnetwork_secondary_range_name
+  # We're deploying the cluster in the 'public' subnetwork to allow outbound internet access
+  # See the network access tier table for full details:
+  # https://github.com/gruntwork-io/terraform-google-network/tree/master/modules/vpc-network#access-tier
+  network                      = module.vpc_network.network
+  subnetwork                   = module.vpc_network.public_subnetwork
+  cluster_secondary_range_name = module.vpc_network.public_subnetwork_secondary_range_name
 
-#   # To make testing easier, we keep the public endpoint available. In production, we highly recommend restricting access to only within the network boundary, requiring your users to use a bastion host or VPN.
-#   disable_public_endpoint = "false"
+  # To make testing easier, we keep the public endpoint available. In production, we highly recommend restricting access to only within the network boundary, requiring your users to use a bastion host or VPN.
+  disable_public_endpoint = "false"
 
-#   # add resource labels to the cluster
-#   resource_labels = {
-#     environment = var.environment
-#   }
-# }
+  # add resource labels to the cluster
+  resource_labels = {
+    environment = var.environment
+  }
+}
 
 # # #--------------------------------------------------------------------------------------
 # # # CREATE NODE POOL

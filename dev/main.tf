@@ -12,13 +12,13 @@ module "vpc_network" {
   source  = "terraform-google-modules/network/google"
   version = "~> 4.0"
 
-  project_id   = var.project_id
-  network_name = var.network_name
-  routing_mode = var.routing_mode
+  project_id              = var.project_id
+  network_name            = var.network_name
+  routing_mode            = var.routing_mode
   auto_create_subnetworks = var.auto_create_subnetworks
-  mtu = var.mtu
+  mtu                     = var.mtu
 
-  subnets = var.subnets
+  subnets          = var.subnets
   secondary_ranges = var.secondary_ranges
 }
 # module "vpc_network" {
@@ -39,14 +39,15 @@ module "vpc_network" {
 # CREATE GKE CLUSTER
 # --------------------------------------------------------------------------------------
 module "gke_cluster" {
-  source = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  project_id                 = var.project
-  name                       = "${var.cluster_name}-${var.environment}"
-  region                     = var.region
-  network                    = var.network_name
-  subnetwork                 = module.vpc_network.subnets[0].subnet_name
-  ip_range_pods              = var.ip_range_pods
-  ip_range_services          = var.ip_range_services
+  source            = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
+  project_id        = var.project
+  name              = "${var.cluster_name}-${var.environment}"
+  region            = var.region
+  network           = var.network_name
+  count             = length(module.vpc_network.subnets)
+  subnetwork        = module.vpc_network.subnets[count.index].subnet_name
+  ip_range_pods     = var.ip_range_pods
+  ip_range_services = var.ip_range_services
 }
 
 # module "gke_cluster" {

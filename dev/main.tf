@@ -44,7 +44,7 @@ module "gke_cluster" {
   name                       = "${var.cluster_name}-${var.environment}"
   region                     = var.region
   network                    = var.network_name
-  subnetwork                 = module.subnets[0].subnet_name
+  subnetwork                 = module.vpc_network.subnets[0].subnet_name
   ip_range_pods              = var.ip_range_pods
   ip_range_services          = var.ip_range_services
 }

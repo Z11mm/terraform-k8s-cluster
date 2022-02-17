@@ -19,11 +19,11 @@ variable "region" {
   type        = string
 }
 
-variable "network_name" {
-  default     = "gke-cluster-vpc"
-  description = "The name of the vpc network"
-  type        = string
-}
+# variable "network_name" {
+#   default     = "gke-cluster-vpc"
+#   description = "The name of the vpc network"
+#   type        = string
+# }
 
 variable "environment" {
   default     = "development"

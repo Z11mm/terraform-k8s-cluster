@@ -44,8 +44,8 @@ module "gke_cluster" {
   name              = "${var.cluster_name}-${var.environment}"
   region            = var.region
   network           = var.network_name
-  count             = length(module.vpc_network.subnets)
-  subnetwork        = module.vpc_network.subnets[count.index]
+  # count             = length(module.vpc_network.subnets)
+  subnetwork        = module.vpc_network.subnets.subnet_name
   ip_range_pods     = var.ip_range_pods
   ip_range_services = var.ip_range_services
 }
@@ -115,10 +115,6 @@ module "gke_cluster" {
 #   }
 # }
 
-# resource "time_sleep" "wait_30_seconds" {
-#   depends_on = [module.gke_cluster]
-#   create_duration = "30s"
-# }
 
 # module "gke_auth" {
 #   depends_on           = [time_sleep.wait_30_seconds]

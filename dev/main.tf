@@ -37,16 +37,16 @@ module "vpc_network" {
 # --------------------------------------------------------------------------------------
 # CREATE GKE CLUSTER
 # --------------------------------------------------------------------------------------
-module "gke_cluster" {
-  source            = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  project_id        = var.project
-  name              = "${var.cluster_name}-${var.environment}"
-  region            = var.region
-  network           = var.network_name
-  subnetwork        = lookup(module.vpc_network.subnets)
-  ip_range_pods     = var.ip_range_pods
-  ip_range_services = var.ip_range_services
-}
+# module "gke_cluster" {
+#   source            = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
+#   project_id        = var.project
+#   name              = "${var.cluster_name}-${var.environment}"
+#   region            = var.region
+#   network           = var.network_name
+#   subnetwork        = lookup(module.vpc_network.subnets)
+#   ip_range_pods     = var.ip_range_pods
+#   ip_range_services = var.ip_range_services
+# }
 
 # module "gke_cluster" {
 #   depends_on = [

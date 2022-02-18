@@ -7,7 +7,6 @@ resource "random_string" "suffix" {
   special = false
   upper   = false
 }
-
 module "vpc_network" {
   source  = "terraform-google-modules/network/google"
   version = "~> 4.0"

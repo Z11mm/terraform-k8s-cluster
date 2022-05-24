@@ -26,20 +26,20 @@ terraform {
 
   backend "gcs" {
     credentials = "./key.json"
-    bucket = "backend-bucket-tf-01-333007"
-    # prefix = "boutique-app/dev"
+    bucket = "zo-backend-tf"
+    prefix = "boutique-app/dev"
   }
 }
 
 provider "google" {
-  credentials = var.GOOGLE_CREDENTIALS
-  project     = var.project_id
+  credentials = "./key.json"
+  project     = var.project
   region      = var.region
 }
 
 provider "google-beta" {
-  credentials = var.GOOGLE_CREDENTIALS
-  project     = var.project_id
+  credentials = "./key.json"
+  project     = var.project
   region      = var.region
 }
 
@@ -55,11 +55,11 @@ provider "kubectl" {
 # ---------
 data "google_client_config" "default" {}
 
-# provider "kubernetes" {
-#   host                   = "https://${module.gke_cluster.endpoint}"
-#   token                  = data.google_client_config.default.access_token
-#   cluster_ca_certificate = base64decode(module.gke_cluster.ca_certificate)
-# }
+provider "kubernetes" {
+  host                   = "https://${module.gke_cluster.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke_cluster.ca_certificate)
+}
 
 provider "helm" {
   kubernetes {
